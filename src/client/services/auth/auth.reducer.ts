@@ -1,6 +1,6 @@
 import { IState, IAction, ACTIONS } from './auth.constants';
 import { Reducer } from 'redux';
-import { isEmpty } from 'lodash';
+import isEmpty = require('lodash/isEmpty');
 
 export const INITIAL_STATE: IState = {
   isFetching: false,
