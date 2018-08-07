@@ -2,24 +2,22 @@ import * as React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Switch
 } from 'react-router-dom';
 
-// Components
-import About from './screens/about';
-import Home from './screens/home';
+// Screens
+import Home from './screens/home/home';
+import Signin from './screens/authentication/signin/signin';
+import Signup from './screens/authentication/signup/signup';
 
 export default () => {
   return (
     <Router>
-      <div>
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </div>
+      <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/about" component={About}/>
-      </div>
+        <Route path="/signin" component={Signin}/>
+        <Route path="/signup" component={Signup}/>
+      </Switch>
     </Router>
   )
 }
