@@ -4,7 +4,8 @@
   "description": "Chat application in TypeScript",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch src/server --exec ts-node src/server/index.ts"
+    "start": "nodemon --watch src/server --exec ts-node src/server/index.ts",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
   "keywords": [
     "chat",
@@ -20,10 +21,12 @@
     "@types/helmet": "0.0.38",
     "@types/jsonwebtoken": "^7.2.8",
     "@types/lodash": "^4.14.116",
+    "@types/mocha": "^5.2.5",
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^6.0.6",
     "@types/react-router-dom": "^4.3.0",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
     "ts-loader": "^4.4.2",
     "ts-node": "^7.0.0",
