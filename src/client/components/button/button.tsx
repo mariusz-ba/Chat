@@ -1,7 +1,13 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 
-const StyledButton = styled.button`
+interface IButton {
+  mode?: string
+}
+
+const button: StyledFunction<IButton & React.HTMLProps<HTMLButtonElement>> = styled.button;
+
+const Button = button`
   outline: 0;
   border: 0;
   border-radius: 3px;
@@ -9,43 +15,26 @@ const StyledButton = styled.button`
   transition: background linear .125s;
 
   color: ${
-    (props: any) => props.mode ?
+    props => props.mode ?
       colors[props.mode].color :
       colors['light'].color
   };
 
   background: ${ 
-    (props: any)  => props.mode ? 
+    props  => props.mode ? 
       colors[props.mode].background : 
       colors['light'].background 
   };
 
-    &:hover {
+  &:hover {
     cursor: pointer;
     background: ${ 
-      (props: any) => props.mode ? 
+      props => props.mode ? 
         colors[props.mode].hover : 
         colors['light'].hover
     };
   }
 `
-
-interface IProps {
-  mode?: string,
-  children?: any,
-  onClick(e: React.SyntheticEvent<HTMLButtonElement>): any
-}
-
-export default class Button extends React.Component<IProps> {
-  render() {
-    return (
-      <StyledButton {...this.props}>
-        {this.props.children}
-      </StyledButton>
-    )
-  }
-}
-
 
 interface IColors {
   [mode: string]: any
@@ -59,3 +48,5 @@ const colors: IColors = {
   light: { background: '#f8f9fa', color: '#212529', hover: '#e2e6ea' },
   dark: { background: '#343a40', color: '#fff', hover: '#23272b' },
 }
+
+export default Button;
