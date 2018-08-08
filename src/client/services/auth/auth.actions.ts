@@ -4,7 +4,7 @@ import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
 
-interface ICredentials {
+export interface ICredentials {
   identifier: string,
   password: string
 }
@@ -28,7 +28,7 @@ export const signIn = (credentials: ICredentials) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestSignin(credentials));
     try {
-      const res = await axios.post('/api/auth', credentials);
+      const res = await axios.post('/api/users/auth', credentials);
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
