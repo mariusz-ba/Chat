@@ -4,6 +4,10 @@ import { catchExceptions } from '../../middleware/exceptions';
 import UsersService from './users.service';
 import User from './users.model';
 
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+import { jwtSecret } from '../../config';
+
 class UsersController implements IController {
   private _route: string;
   private _router: Router = Router();
@@ -27,6 +31,31 @@ class UsersController implements IController {
       catchExceptions(async (req: Request, res: Response) => {
         const users = await UsersService.getUsers();
         res.status(200).json(users);
+      })
+    )
+
+    this._router.post(
+      '/auth',
+      catchExceptions(async (req: Request, res: Response) => {
+        const { identifier, password } = req.body;
+        const user = await User.findOne({
+          $or: [
+            { 'username': identifier },
+            { 'email': identifier }
+          ]
+        })
+        if(user) {
+          if(bcrypt.compareSync(password, user.password)) {
+            const token = jwt.sign({
+              _id: user._id
+            }, jwtSecret);
+            res.status(200).json({ token });
+          } else {
+            res.status(401).json({ errors: { form: 'Invalid credentials' }});
+          }
+        } else {
+          res.status(401).json({ errors: { form: 'Invalid credentials' }});
+        }
       })
     )
 
