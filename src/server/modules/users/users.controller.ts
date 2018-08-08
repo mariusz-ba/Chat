@@ -70,9 +70,20 @@ class UsersController implements IController {
     this._router.post(
       '/', 
       catchExceptions(async (req: Request, res: Response) => {
-        const user = new User(req.body);
-        const savedUser = await UsersService.saveUser(user);
-        res.status(200).json(savedUser);
+        const checkUsername = await User.count({ username: req.body.username });
+        const checkEmail = await User.count({ email: req.body.email });
+
+        if(checkUsername || checkEmail) {
+          // User with this username or email already exists
+          const response: any = {};
+          if(checkUsername) response['username'] = 'This username is already taken';
+          if(checkEmail) response['email'] = 'This email is already taken';
+          res.status(400).json(response);
+        } else {
+          const user = new User(req.body);
+          const savedUser = await UsersService.saveUser(user);
+          res.status(200).json(savedUser);
+        }
       })
     )
 
