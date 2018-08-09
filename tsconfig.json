@@ -11,7 +11,13 @@
       "es2015",
       "es2015.promise",
       "dom"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "components/*": ["client/components/*"],
+      "services/*": ["client/services/*"],
+      "utils/*": ["client/utils/*"]
+    }
   },
   "include": [
     "./src/**/*"

@@ -1,3 +1,9 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 // Navigation header
 .header {
   display: flex;
@@ -59,4 +65,38 @@
   align-self: center;
   font-size: .875em;
   font-weight: bold;
+}
+
+// Naviagation footer
+.footer {
+  margin-top: auto;
+}
+
+.signout {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  width: 100%;
+  padding: 1.5rem 1rem;
+  color: #000;
+  border-top: 1px solid rgba(0, 0, 0, .125);
+
+  display: grid;
+  grid-template-columns: 1rem auto;
+  grid-column-gap: 1rem;
+
+  &:hover {
+    cursor: pointer;
+    background: #fafafa;
+  }
+
+  &_icon {
+    align-self: center;
+  }
+
+  &_text {
+    align-self: center;
+    font-size: .875em;
+    font-weight: bold;
+  }
 }
