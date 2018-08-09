@@ -1,52 +1,31 @@
 import * as React from 'react';
-import styled, { StyledFunction } from 'styled-components';
+import classnames from 'classnames';
+const styles = require('./button.scss');
 
 interface IButton {
-  mode?: string
+  primary?: boolean,
+  secondary?: boolean,
+  success?: boolean,
+  danger?: boolean,
+  dark?: boolean,
+  className?: string
+  children: any,
+  onClick(e: React.SyntheticEvent<HTMLButtonElement>): void
 }
 
-const button: StyledFunction<IButton & React.HTMLProps<HTMLButtonElement>> = styled.button;
+export default function Button(props: IButton) {
 
-const Button = button`
-  outline: 0;
-  border: 0;
-  border-radius: 3px;
-  padding: .5rem 1rem;
-  transition: background linear .125s;
+  const classNames = classnames(styles.button, {
+    [styles.button_primary]: props.primary,
+    [styles.button_secondary]: props.secondary,
+    [styles.button_success]: props.success,
+    [styles.button_danger]: props.danger,
+    [styles.button_dark]: props.dark,
+  })
 
-  color: ${
-    props => props.mode ?
-      colors[props.mode].color :
-      colors['light'].color
-  };
-
-  background: ${ 
-    props  => props.mode ? 
-      colors[props.mode].background : 
-      colors['light'].background 
-  };
-
-  &:hover {
-    cursor: pointer;
-    background: ${ 
-      props => props.mode ? 
-        colors[props.mode].hover : 
-        colors['light'].hover
-    };
-  }
-`
-
-interface IColors {
-  [mode: string]: any
+  return (
+    <button className={classNames} onClick={props.onClick}>
+      {props.children}
+    </button>
+  )
 }
-
-const colors: IColors = {
-  primary: { background: '#007bff', color: '#fff', hover: '#0069d9' },
-  secondary: { background: '#6c757d', color: '#fff', hover: '#5a6268' },
-  success: { background: '#28a745', color: '#fff', hover: '#218838' },
-  danger: { background: '#dc3545', color: '#fff', hover: '#c82333' },
-  light: { background: '#f8f9fa', color: '#212529', hover: '#e2e6ea' },
-  dark: { background: '#343a40', color: '#fff', hover: '#23272b' },
-}
-
-export default Button;

@@ -14,9 +14,9 @@ export default () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={Home}/>
         <Route path="/signin" component={Signin}/>
         <Route path="/signup" component={Signup}/>
+        <Route path="/" component={Home}/>
       </Switch>
     </Router>
   )

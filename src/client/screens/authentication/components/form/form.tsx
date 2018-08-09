@@ -1,12 +1,7 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import Group from './components/group/group';
 
-import Group from './group';
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`
+const styles = require('./form.scss');
 
 interface IProps {
   children: any
@@ -17,9 +12,9 @@ export default class Form extends React.Component<IProps> {
   
   render() {
     return (
-      <StyledForm>
+      <form className={styles.form}>
         {this.props.children}
-      </StyledForm>
+      </form>
     )
   }
 }

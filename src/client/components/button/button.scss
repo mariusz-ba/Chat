@@ -1,0 +1,45 @@
+.button {
+  outline: 0;
+  border: 0;
+  border-radius: 3px;
+  padding: .5rem 1rem;
+  transition: background linear .125s;
+
+  background: #f8f9fa;
+  color: #212529;
+
+  &:hover {
+    cursor: pointer;
+    background: #e2e6ea;
+  }
+
+  &_primary {
+    background: #007bff; 
+    color: #fff;
+    &:hover { background: #0069d9; }
+  }
+
+  &_secondary {
+    background: #6c757d; 
+    color: #fff;
+    &:hover { background: #5a6268; }
+  }
+
+  &_success {
+    background: #28a745; 
+    color: #fff;
+    &:hover { background: #218838; }
+  }
+
+  &_danger {
+    background: #dc3545; 
+    color: #fff;
+    &:hover { background: #c82333; }
+  }
+
+  &_dark {
+    background: #343a40; 
+    color: #fff;
+    &:hover { background: #23272b; }
+  }
+}

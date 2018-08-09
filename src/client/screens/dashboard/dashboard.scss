@@ -1,0 +1,28 @@
+.dashboard {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 200px auto;
+}
+
+.sidebar,
+.main {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #a0a0a0;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #707070;
+  }
+}
+
+.sidebar {
+  border-right: 1px solid rgba(0, 0, 0, .125);
+}

@@ -1,18 +1,11 @@
 import * as React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 
 import Button from '../../../components/button/button';
 import Card from '../components/card/card';
 import Form from '../components/form/form';
 
-const Layout = styled.div`
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #9933ff;
-`
+const styles = require('../authentication.scss');
 
 interface IError {
   username: string,
@@ -78,18 +71,18 @@ export default class Signup extends React.Component<{}, IState> {
     const { username, email, password, confirm, errors } = this.state;
 
     return (
-      <Layout>
+      <div className={styles.container}>
         <Card>
           <Card.Title text="Sign up"/>
           <Form>
-            <Form.Group error={errors.username}>
+            <Form.Group error={errors.username.length > 0}>
               <label htmlFor="username">Username</label>
               <input id="username" type="text" name="username" value={username} onChange={this.handleChange}/>
               { errors.username &&
                 <small>{errors.username}</small>
               }
             </Form.Group>
-            <Form.Group error={errors.email}>
+            <Form.Group error={errors.email.length > 0}>
               <label htmlFor="email">E-Mail</label>
               <input id="email" type="email" name="email" value={email} onChange={this.handleChange}/>
               { errors.email &&
@@ -100,17 +93,17 @@ export default class Signup extends React.Component<{}, IState> {
               <label htmlFor="password">Password</label>
               <input id="password" type="password" name="password" value={password} onChange={this.handleChange}/>
             </Form.Group>
-            <Form.Group error={errors.confirm}>
+            <Form.Group error={errors.confirm.length > 0}>
               <label htmlFor="confirm">Confirm password</label>
               <input id="confirm" type="password" name="confirm" value={confirm} onChange={this.handleChange}/>
               { errors.confirm &&
                 <small>{errors.confirm}</small>
               }
             </Form.Group>
-            <Button mode="primary" onClick={this.handleSubmit}>Sign up</Button>
+            <Button primary onClick={this.handleSubmit}>Sign up</Button>
           </Form>
         </Card>
-      </Layout>
+      </div>
     )
   }
 }

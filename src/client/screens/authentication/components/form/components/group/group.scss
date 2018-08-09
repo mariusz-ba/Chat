@@ -1,13 +1,4 @@
-import * as React from 'react';
-import styled, { StyledFunction } from 'styled-components';
-
-interface IGroup {
-  error?: any
-}
-
-const div: StyledFunction<IGroup & React.HTMLProps<HTMLDivElement>> = styled.div;
-
-const Group = div`
+.group {
   display: flex;
   flex-direction: column;
   &:first-of-type { margin-top: 1rem; }
@@ -26,8 +17,12 @@ const Group = div`
     border-radius: 3px;
     font-size: 1em;
     padding: .5rem;
-
-    box-shadow: ${props => props.error ? '0 0 2px 1px #dc3545' : 'none'};
+  }
+  
+  &_error {
+    input {
+      box-shadow: 0 0 2px 1px #dc3545;
+    }
   }
 
   small {
@@ -35,6 +30,4 @@ const Group = div`
     color: #dc3545;
     font-weight: bold;
   }
-`
-
-export default Group;
+}
