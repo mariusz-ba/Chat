@@ -16,6 +16,9 @@ if(token) {
   store.dispatch(setCurrentUser(jwt.decode(token)));
 }
 
+import * as io from 'socket.io-client';
+const socket = io();
+
 render(
   <Provider store={store}>
     <App />
