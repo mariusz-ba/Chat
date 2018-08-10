@@ -1,4 +1,6 @@
 import * as io from 'socket.io-client';
+import store from '../../store';
+import { fetchUser, deletedUser } from 'services/users/users.actions';
 
 export default class Socket {
   static _instance: Socket | undefined;
@@ -32,6 +34,16 @@ export default class Socket {
     // Attach all controllers to the socket
 
     this._socket.emit('signin', this._userId);
+
+    this._socket.on('userconnected', (userId: string) => {
+      // New user connected - notify reducer to fetch user data
+      store.dispatch(fetchUser(userId));
+    })
+
+    this._socket.on('userdisconnected', (userId: string) => {
+      // User disconnected - notify reducer to delete this user
+      store.dispatch(deletedUser(userId));
+    })
 
     this._socket.on('receive', (message: any) => {
       console.log(message);

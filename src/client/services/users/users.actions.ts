@@ -22,7 +22,7 @@ export const receiveUsers = (users: Array<IUser>): IAction => ({
   payload: users
 })
 
-export const fetchUser = (userId: string) => {
+export const fetchUser = (userId: string): any => {
   return async (dispatch: Dispatch) => {
     dispatch(requestUser(userId));
     try {
@@ -59,6 +59,11 @@ export const updateUser = (userId: string, data: IUser) => {
     }
   }
 }
+
+export const deletedUser = (userId: string): IAction => ({
+  type: ACTIONS.DELETE_USER,
+  payload: userId
+})
 
 export const setUsersErrors = (errors: IErrors): IAction => ({
   type: ACTIONS.SET_USERS_ERRORS,

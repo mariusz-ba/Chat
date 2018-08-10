@@ -18,7 +18,7 @@ export class SocketsController {
         usersService.connectSocket(userId, socket.id);
 
         // Notify other users im online
-        socket.broadcast.emit('userconnected', { userId });
+        socket.broadcast.emit('userconnected', userId);
       })
 
       socket.on('signout', async () => {
@@ -28,7 +28,7 @@ export class SocketsController {
         // Try catch that and check if user is connected so if socketid exists
         const user = await usersService.getUserBySocket(socket.id);
         // Notify other users im offline
-        socket.broadcast.emit('userdisconnected', { userId: user._id });
+        socket.broadcast.emit('userdisconnected', user._id);
       })
 
       socket.on('disconnect', async () => {
@@ -38,7 +38,7 @@ export class SocketsController {
         // Try catch that and check if user is connected so if socketid exists
         const user = await usersService.getUserBySocket(socket.id);
         // Notify other users im offline
-        socket.broadcast.emit('userdisconnected', { userId: user._id });
+        socket.broadcast.emit('userdisconnected', user._id);
       })
 
       socket.on('message', async (message: any) => {
