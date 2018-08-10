@@ -1,0 +1,16 @@
+.container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 300px auto;
+}
+
+.conversations,
+.conversation {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.conversations {
+  background: #fafafa;
+  padding: .5rem;
+}
