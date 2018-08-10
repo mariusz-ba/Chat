@@ -32,6 +32,11 @@ class UsersService {
     }
   }
 
+  async getUserSocket(userId: string) {
+    const user = await this.User.findById(userId);
+    return user.socket;
+  }
+
   async saveUser(user: IUserDocument) {
     await user.save();
     return user;

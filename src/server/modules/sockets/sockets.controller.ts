@@ -43,9 +43,9 @@ export class SocketsController {
 
       socket.on('message', async (message: any) => {
         // message = { from: userid, to: userid, content: string }
-        const user = await usersService.getUserById(message.to);
+        const s = await usersService.getUserSocket(message.to);
         
-        socket.broadcast.to(user.socket).emit('receive', message);
+        socket.broadcast.to(s).emit('receive', message);
       })
     })
   }
