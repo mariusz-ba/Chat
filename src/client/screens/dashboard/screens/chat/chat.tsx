@@ -2,53 +2,92 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { IState as IUsersState } from 'services/users/users.constants';
 import { IState as IAuthState } from 'services/auth/auth.constants';
-import { fetchUsers } from 'services/users/users.actions';
+import { IState as IMessagesState, IMessage } from 'services/messages/messages.constants';
+import { fetchUsers, fetchUser } from 'services/users/users.actions';
+import { sendMessage } from 'services/messages/messages.actions';
 import values = require('lodash/values');
+import omit = require('lodash/omit');
 
 import Socket from 'services/sockets/socket';
 
 import Conversations from './components/conversations/conversations';
+import Conversation from './components/conversation/conversation';
+
 const styles = require('./chat.scss');
 
 interface IProps {
   auth: IAuthState,
   users: IUsersState,
-  fetchUsers(filter: any): any
+  messages: IMessagesState,
+  fetchUser(userId: string): any,
+  fetchUsers(filter: any): any,
+  sendMessage(message: IMessage): any
 }
 
-export class Chat extends React.Component<IProps> {
-  componentDidMount () {
-    this.props.fetchUsers({ online: true });
+interface IState {
+  current?: string
+}
+
+export class Chat extends React.Component<IProps, IState> {
+  state = {
+    current: ''
   }
-  
-  openChat(userId: string) {
-    const socket = Socket.getInstance();
-    socket.send({ 
-      from: this.props.auth.user._id,
-      to: userId,
-      content: 'This is message that is sent only to u :*'
-    })
+
+  async componentDidMount () {
+    await this.props.fetchUsers({});
+    await this.props.fetchUser(this.props.auth.user._id);
   }
 
   conversationClicked = (userId: string) => {
     console.log('Opening chat with user: ', userId);
+
     // Set current conversation
+    this.setState({ current: userId });
+  }
+
+  sendMessage = (message: string) => {
+    // send to state.current
+    const socket = Socket.getInstance();
+    const data: any = {
+      from: this.props.auth.user._id,
+      to: this.state.current,
+      content: message
+    }
+    socket.send(data);
+    this.props.sendMessage(data);
   }
 
   render() {
+    const messages = 
+      this.state.current &&
+      this.props.messages.messages &&
+      this.props.messages.messages[this.state.current] ? 
+      this.props.messages.messages[this.state.current] : [];
+
     return (
       <div className={styles.container}>
         <div className={styles.conversations}>
-          <Conversations users={values(this.props.users.users)} onConversationClicked={this.conversationClicked}/>
+          <Conversations 
+            users={values(omit(this.props.users.users, this.props.auth.user._id))} 
+            onConversationClicked={this.conversationClicked}/>
         </div>
         <div className={styles.conversation}>
-          In progress..
+          <Conversation
+            messages={messages.map(message => ({
+              from: this.props.users.users[message.from],
+              to: this.props.users.users[message.to],
+              content: message.content
+            }))}
+            send={this.sendMessage}
+          />
         </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ auth, users }: { auth: any, users: any}) => ({ auth, users });
+const mapStateToProps = 
+  ({ auth, users, messages }: { auth: any, users: any, messages: any}) => 
+  ({ auth, users, messages });
 
-export default connect(mapStateToProps, { fetchUsers })(Chat);
+export default connect(mapStateToProps, { fetchUser, fetchUsers, sendMessage })(Chat);

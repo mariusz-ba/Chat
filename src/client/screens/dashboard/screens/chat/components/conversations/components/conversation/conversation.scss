@@ -54,7 +54,31 @@
 .avatar {
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #555555;
+    background: #ededed;
+  }
+  
+  &_online {
+    &::after {
+      background: rgb(42, 255, 42);
+    }
+  }
+
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
 }
 
 .content {

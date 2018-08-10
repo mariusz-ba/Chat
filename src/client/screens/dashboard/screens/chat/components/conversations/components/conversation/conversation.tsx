@@ -23,10 +23,16 @@ export default class UserItem extends React.Component<IProps> {
       [styles.item_active]: this.props.active
     })
 
+    const avatarStyles = classnames(styles.avatar, {
+      [styles.avatar_online]: user.online
+    })
+
     return (
       <li className={classNames}>
         <Link className={styles.link} to="#" onClick={this.onClicked}>
-          <img className={styles.avatar} src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
+          <div className={avatarStyles}>
+            <img src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
+          </div>
           <div className={styles.content}>
             <h2 className={styles.content__username}>{user.username}</h2>
             <p className={styles.content__preview}>Last message received from this user</p>
