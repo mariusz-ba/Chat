@@ -5,7 +5,8 @@ export interface IUser {
   lastname?: string,
   avatar?: string,
   createdAt: number,
-  updatedAt: number
+  updatedAt: number,
+  online: boolean
 }
 
 export interface IUsers {
@@ -33,5 +34,6 @@ export const ACTIONS = {
   RECEIVE_USER: 'RECEIVE_USER',
   RECEIVE_USERS: 'RECEIVE_USERS',
   DELETE_USER: 'DELETE_USER',
+  SET_USER_OFFLINE: 'SET_USER_OFFLINE',
   SET_USERS_ERRORS: 'SET_USERS_ERRORS'
 }

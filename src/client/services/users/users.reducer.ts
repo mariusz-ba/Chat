@@ -24,6 +24,10 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
       state = { ...state, users: mapKeys(action.payload, '_id')};
       break;
     }
+    case ACTIONS.SET_USER_OFFLINE: {
+      state = { ...state, users: { ...state.users, [action.payload]: { ...state.users[action.payload], online: false }}}
+      break;
+    }
     case ACTIONS.DELETE_USER: {
       state = { ...state, users: omit(state.users, action.payload) };
       break;

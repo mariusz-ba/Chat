@@ -60,6 +60,11 @@ export const updateUser = (userId: string, data: IUser) => {
   }
 }
 
+export const setUserOffline = (userId: string): IAction => ({
+  type: ACTIONS.SET_USER_OFFLINE,
+  payload: userId
+})
+
 export const deletedUser = (userId: string): IAction => ({
   type: ACTIONS.DELETE_USER,
   payload: userId
