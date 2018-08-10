@@ -29,8 +29,13 @@ class UsersController implements IController {
     this._router.get(
       '/', 
       catchExceptions(async (req: Request, res: Response) => {
-        const users = await UsersService.getUsers();
-        res.status(200).json(users);
+        if(req.query.online) {
+          const users = await UsersService.getOnlineUsers();
+          res.status(200).json(users);
+        } else {
+          const users = await UsersService.getUsers();
+          res.status(200).json(users);
+        }
       })
     )
 

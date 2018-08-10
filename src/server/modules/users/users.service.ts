@@ -13,6 +13,10 @@ class UsersService {
     return this.User.find({});
   }
 
+  async getOnlineUsers() {
+    return this.User.find({ socket: { $ne: '' }});
+  }
+
   async getUserById(userId: string) {
     return this.User.findById(userId);
   }
