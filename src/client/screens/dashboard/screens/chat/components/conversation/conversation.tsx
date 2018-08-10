@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { IUser } from 'services/users/users.constants';
+import classnames from 'classnames';
+
+const styles = require('./conversation.scss');
 
 interface IMessage {
   from: IUser,
@@ -8,6 +11,7 @@ interface IMessage {
 }
 
 interface IProps {
+  user: string
   messages: Array<IMessage>,
   send(message: string): any
 }
@@ -21,34 +25,39 @@ export default class Conversation extends React.Component<IProps, IState> {
     message: ''
   }
 
-  changeMessage = (e: React.FormEvent<HTMLInputElement>) => {
+  changeMessage = (e: React.FormEvent<HTMLTextAreaElement>) => {
     this.setState({ message: e.currentTarget.value });
   }
   
   send = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log('sending message');
     this.props.send(this.state.message);
     this.setState({ message: '' });
   }
 
   render() {
-    const messages = this.props.messages.map((message: IMessage, index) => (
-      <li key={index}>
-        From: {message.from.username},
-        To: {message.to.username}
-        Content: {message.content}
-      </li>
-    ))
+    const messages = this.props.messages.map((message: IMessage, index) => {
+      const itemStyles = classnames(styles.messages__item, {[styles.messages__item_right]: this.props.user === message.from._id });
+      return (
+        <li className={itemStyles} key={index}>
+          <div className={styles.messages__avatar}>
+            <img src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
+          </div>
+          <div className={styles.messages__message}>{message.content}</div>
+        </li>
+      )
+    })
 
     return (
-      <div>
-        <div>
-          <ul>{messages}</ul>
+      <div className={styles.container}>
+        <div className={styles.messages}>
+          <ul className={styles.messages__list}>{messages}</ul>
         </div>
         <div>
-          <form>
-            <input type="text" value={this.state.message} onChange={this.changeMessage}/>
-            <button type="submit" onClick={this.send}>Send</button>
+          <form className={styles.editor}>
+            <textarea className={styles.editor__input} placeholder="What do You want to say" value={this.state.message} onChange={this.changeMessage}></textarea>
+            <button className={styles.editor__button} type="submit" onClick={this.send}><i className="fas fa-arrow-right"></i></button>
           </form>
         </div>
       </div>

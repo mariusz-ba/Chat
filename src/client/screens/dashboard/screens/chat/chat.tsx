@@ -76,9 +76,10 @@ export class Chat extends React.Component<IProps, IState> {
             messages={messages.map(message => ({
               from: this.props.users.users[message.from],
               to: this.props.users.users[message.to],
-              content: message.content
+              content: message.content,
             }))}
             send={this.sendMessage}
+            user={this.props.auth.user._id}
           />
         </div>
       </div>
