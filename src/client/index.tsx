@@ -9,15 +9,17 @@ import * as jwt from 'jsonwebtoken';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser } from './services/auth/auth.actions';
 
+import Socket from 'services/sockets/socket';
+
 const token = localStorage.getItem('jwtToken');
 
 if(token) {
   setAuthorizationToken(token);
-  store.dispatch(setCurrentUser(jwt.decode(token)));
+  const decoded = jwt.decode(token);
+  store.dispatch(setCurrentUser(decoded));
+  // Create socket
+  const socket = Socket.getInstance((decoded as any)._id);
 }
-
-import * as io from 'socket.io-client';
-const socket = io();
 
 render(
   <Provider store={store}>

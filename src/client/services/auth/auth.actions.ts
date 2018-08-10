@@ -3,6 +3,7 @@ import { IState, IAction, ACTIONS } from './auth.constants';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
+import Socket from 'services/sockets/socket';
 
 export interface ICredentials {
   identifier: string,
@@ -32,7 +33,10 @@ export const signIn = (credentials: ICredentials) => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
-      dispatch(setCurrentUser(jwt.decode(token)));
+      const decoded = jwt.decode(token);
+      dispatch(setCurrentUser(decoded));
+      // Make sure socket exists
+      const socket = Socket.getInstance((decoded as any)._id);
     } catch (e) {
       dispatch(setAuthErrors(e.response.data.errors));
     }
@@ -50,6 +54,10 @@ export const signOut = () => {
     localStorage.removeItem('jwtToken');
     setAuthorizationToken(null);
     dispatch(onSignOut());
+    // Destroy socket
+    const socket = Socket.getInstance();
+    socket.destroy();
+    
     return Promise.resolve();
   }
 }
