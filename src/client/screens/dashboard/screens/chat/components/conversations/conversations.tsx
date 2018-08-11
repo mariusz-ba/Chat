@@ -6,6 +6,7 @@ const styles = require('./conversations.scss');
 
 interface IProps {
   users: Array<IUser>,
+  lastMessages: any,
   onConversationClicked(userId: string): any
 }
 
@@ -30,6 +31,7 @@ export default class Conversations extends React.Component<IProps, IState> {
           this.props.users.map((user: IUser) => (
             <Conversation 
               active={this.state.current === user._id} 
+              lastMessage={this.props.lastMessages[user._id]}
               key={user._id} 
               user={user} 
               onClicked={this.onConversationClicked}/>

@@ -64,11 +64,19 @@ export class Chat extends React.Component<IProps, IState> {
       this.props.messages.messages[this.state.current] ? 
       this.props.messages.messages[this.state.current] : [];
 
+
+    const lastMessages: any = {};
+    for(let key in this.props.messages.messages) {
+      const array = this.props.messages.messages[key];
+      lastMessages[key] = array[array.length - 1] ? array[array.length - 1] : null;
+    }
+
     return (
       <div className={styles.container}>
         <div className={styles.conversations}>
           <Conversations 
             users={values(omit(this.props.users.users, this.props.auth.user._id))} 
+            lastMessages={lastMessages}
             onConversationClicked={this.conversationClicked}/>
         </div>
         <div className={styles.conversation}>

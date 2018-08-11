@@ -7,6 +7,7 @@ const styles = require('./conversation.scss');
 interface IProps {
   active?: boolean,
   user: IUser,
+  lastMessage: any
   onClicked(userId: string): any
 }
 
@@ -35,7 +36,7 @@ export default class UserItem extends React.Component<IProps> {
           </div>
           <div className={styles.content}>
             <h2 className={styles.content__username}>{user.username}</h2>
-            <p className={styles.content__preview}>Last message received from this user</p>
+            <p className={styles.content__preview}>{ this.props.lastMessage && this.props.lastMessage.content }</p>
             <p className={styles.content__typing}>
               &middot;&middot;&middot;
             </p>
