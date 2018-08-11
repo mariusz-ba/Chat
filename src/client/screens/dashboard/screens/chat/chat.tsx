@@ -71,14 +71,9 @@ export class Chat extends React.Component<IProps, IState> {
       lastMessages[key] = array[array.length - 1] ? array[array.length - 1] : null;
     }
 
-    return (
-      <div className={styles.container}>
-        <div className={styles.conversations}>
-          <Conversations 
-            users={values(omit(this.props.users.users, this.props.auth.user._id))} 
-            lastMessages={lastMessages}
-            onConversationClicked={this.conversationClicked}/>
-        </div>
+    const rightWidget = 
+      this.state.current.length > 0 ?
+      (
         <div className={styles.conversation}>
           <Conversation
             messages={messages.map(message => ({
@@ -90,6 +85,26 @@ export class Chat extends React.Component<IProps, IState> {
             user={this.props.auth.user._id}
           />
         </div>
+      ) :
+      (
+        <div className={styles.placeholder}>
+          <div className={styles.placeholder__container}>
+            <i className={`${styles.placeholder__icon} fas fa-angle-left`}></i>
+            <h1 className={styles.placeholder__heading}>Select conversation</h1>
+            <p className={styles.placeholder__description}>No conversation has been choosen. <br/>Please select conversation from the box on your left.</p>
+          </div>
+        </div>
+      )
+
+    return (
+      <div className={styles.container}>
+        <div className={styles.conversations}>
+          <Conversations 
+            users={values(omit(this.props.users.users, this.props.auth.user._id))} 
+            lastMessages={lastMessages}
+            onConversationClicked={this.conversationClicked}/>
+        </div>
+        { rightWidget }
       </div>
     )
   }
