@@ -2,15 +2,32 @@
   height: 100%;
   display: grid;
   grid-template-rows: auto 48px;
-  grid-row-gap: 1rem;
+  grid-row-gap: .5rem;
 }
 
 .messages {
   display: flex;
   align-items: flex-end;
+  padding: .5rem 0;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #a0a0a0;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #707070;
+  }
   
   &__list {
     width: 100%;
+    max-height: 100%;
   }
 
   &__item {
@@ -84,6 +101,7 @@
   }
 
   &__button {
+    padding: 0;
     font-size: 1.7em;
     color: #959595;
     transition: color linear .2s;

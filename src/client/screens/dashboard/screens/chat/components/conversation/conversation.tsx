@@ -25,7 +25,7 @@ export default class Conversation extends React.Component<IProps, IState> {
     message: ''
   }
 
-  changeMessage = (e: React.FormEvent<HTMLTextAreaElement>) => {
+  changeMessage = (e: React.FormEvent<HTMLInputElement>) => {
     this.setState({ message: e.currentTarget.value });
   }
   
@@ -56,7 +56,7 @@ export default class Conversation extends React.Component<IProps, IState> {
         </div>
         <div>
           <form className={styles.editor}>
-            <textarea className={styles.editor__input} placeholder="What do You want to say" value={this.state.message} onChange={this.changeMessage}></textarea>
+            <input className={styles.editor__input} placeholder="What do You want to say" value={this.state.message} onChange={this.changeMessage}/>
             <button className={styles.editor__button} type="submit" onClick={this.send}><i className="fas fa-arrow-right"></i></button>
           </form>
         </div>
