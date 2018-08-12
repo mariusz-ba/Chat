@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { IState as IUsersState } from 'services/users/users.constants';
+import { IState as IAuthState } from 'services/auth/auth.constants';
 import { signOut } from 'services/auth/auth.actions';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import classnames from 'classnames';
@@ -8,6 +10,8 @@ const styles = require('./navbar.scss');
 
 interface IProps {
   location: any,
+  auth: IAuthState,
+  users: IUsersState,
   signOut(): any
 }
 
@@ -36,12 +40,19 @@ export function Navbar(props: IProps) {
     )
   })
 
+  const user = props.users.users && props.users.users[props.auth.user._id];
+  const firstname = user && user.firstname ? user.firstname : '';
+  const lastname = user && user.lastname ? user.lastname : '';
+  const username = user && user.username ? user.username : 'unnamed';
+
   return (
     <nav className={styles.nav}>
       <div className={styles.header}>
         <img className={styles.avatar} src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
-        <h1 className={styles.title}>Mariusz Baran</h1>
-        <h2 className={styles.subtitle}>@mariusz</h2>
+        { //firstname.length > 0 || lastname.length > 0 &&
+          <h1 className={styles.title}>{firstname} {lastname}</h1>
+        }
+        <h2 className={styles.subtitle}>@{username}</h2>
       </div>
       <ul className={styles.menu}>
         { menuItems }
@@ -56,4 +67,8 @@ export function Navbar(props: IProps) {
   )
 }
 
-export default withRouter<any>(connect(null, { signOut })(Navbar));
+const mapStateToProps = 
+  ({ auth, users }: { auth: any, users: any }) => 
+  ({ auth, users })
+
+export default withRouter<any>(connect(mapStateToProps, { signOut })(Navbar));
