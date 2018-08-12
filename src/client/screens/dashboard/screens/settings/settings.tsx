@@ -155,7 +155,7 @@ export class Settings extends React.Component<IProps, IState> {
         <div className={styles.wrapper}>
           <h1 className={styles.heading}>Settings</h1>
             <div className={styles.settings}>
-              <h2>Basic information</h2>
+              <h2 className={styles.section_heading}>Basic information</h2>
               { this.state.error.basic.length > 0 &&
                 <p className={styles.error}>{this.state.error.basic}</p>
               }
@@ -178,7 +178,7 @@ export class Settings extends React.Component<IProps, IState> {
                 </div>
                 <Button primary onClick={this.submitBasic}>Submit</Button>
               </form>
-              <h2>Change password</h2>
+              <h2 className={styles.section_heading}>Change password</h2>
               { this.state.error.password.length > 0 &&
                 <p className={styles.error}>{this.state.error.password}</p>
               }

@@ -27,3 +27,40 @@
   border-radius: 3px;
   padding: 1rem;
 }
+
+.section_heading {
+  margin-bottom: 1rem;
+}
+
+.error {
+  margin-bottom: 1rem;
+  font-size: .875em;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.form {
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  &__group {
+    max-width: 32rem;
+    display: grid;
+    grid-row-gap: .3rem;
+    margin-bottom: 1rem;
+
+    label {
+      font-size: .875em;
+      font-weight: bold;
+    }
+
+    input {
+      outline: 0;
+      border: 1px solid #d3d3d3;
+      border-radius: 3px;
+      padding: .5rem;
+      font-size: 1em;
+    }
+  }
+}
