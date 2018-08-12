@@ -1,6 +1,7 @@
 export interface IUser {
   _id: string,
   username: string,
+  email: string,
   firstname?: string,
   lastname?: string,
   avatar?: string,

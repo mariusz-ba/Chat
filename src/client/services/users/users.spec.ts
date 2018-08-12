@@ -8,7 +8,8 @@ const user: IUser = {
   username: 'john',
   createdAt: Date.now(),
   updatedAt: Date.now(),
-  online: true
+  online: true,
+  email: 'email'
 }
 
 const users: Array<IUser> = [user];
