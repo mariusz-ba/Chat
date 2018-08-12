@@ -9,6 +9,8 @@ const User = new Schema({
   username: { type: String, required: true, index: { unique: true }},
   password: { type: String, required: true },
   email: { type: String, required: true, index: { unique: true }},
+  firstname: { type: String, default: '' },
+  lastname: { type: String, default: '' },
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number, default: Date.now }
 })

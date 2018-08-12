@@ -87,6 +87,23 @@ class UsersController implements IController {
       })
     )
 
+    this._router.put(
+      '/:id',
+      catchExceptions(async (req: Request, res: Response ) => {
+        // Determine if we're changing users data or password
+        if(req.body.password) {
+          // We're changing password
+          const user = await UsersService.updateUserPassword(req.params.id, req.body.previous, req.body.password);
+          res.status(200).json(user);
+        } else {
+          // We're changing users information
+          const user = await UsersService.updateUser(req.params.id, req.body);
+          const status = user.ok === 1 ? 200 : 400;
+          res.status(status).json(user.user);
+        }
+      })
+    )
+
   }
 
   get route(): string {
