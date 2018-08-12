@@ -12,7 +12,8 @@ interface IState {
     firstname: string,
     lastname: string,
     email: string,
-    username: string
+    username: string,
+    avatar: string
   }
   password: {
     previous: string,
@@ -39,7 +40,8 @@ export class Settings extends React.Component<IProps, IState> {
       firstname: '',
       lastname: '',
       email: '',
-      username: ''
+      username: '',
+      avatar: ''
     },
     password: {
       previous: '',
@@ -68,7 +70,8 @@ export class Settings extends React.Component<IProps, IState> {
         username: user.username,
         firstname: user.firstname,
         lastname: user.lastname,
-        email: user.email
+        email: user.email,
+        avatar: user.avatar
       }
     })
   }
@@ -109,7 +112,8 @@ export class Settings extends React.Component<IProps, IState> {
       username: this.props.users.users[this.props.auth.user._id].username,
       email: this.props.users.users[this.props.auth.user._id].email,
       fristname: this.props.users.users[this.props.auth.user._id].firstname,
-      lastname: this.props.users.users[this.props.auth.user._id].lastname
+      lastname: this.props.users.users[this.props.auth.user._id].lastname,
+      avatar: this.props.users.users[this.props.auth.user._id].avatar,
     }
 
     // Update form state
@@ -175,6 +179,10 @@ export class Settings extends React.Component<IProps, IState> {
                 <div className={styles.form__group}>
                   <label htmlFor="email">E-Mail</label>
                   <input id="email" name="email" type="email" value={basic.email} onChange={this.changeBasic}/>
+                </div>
+                <div className={styles.form__group}>
+                  <label htmlFor="avatar">Avatar</label>
+                  <input id="avatar" name="avatar" type="text" value={basic.avatar} onChange={this.changeBasic}/>
                 </div>
                 <Button primary onClick={this.submitBasic}>Submit</Button>
               </form>
