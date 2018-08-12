@@ -49,9 +49,17 @@ export default class Socket {
     this._socket.on('receive', (message: any) => {
       store.dispatch(receiveMessage(message));
     });
+
+    this._socket.on('updateUser', (userId: string) => {
+      store.dispatch(fetchUser(userId));
+    })
   }
 
   send(message: any) {
     this._socket.emit('message', message);
+  }
+
+  notifyUserUpdate(userId: string) {
+    this._socket.emit('notifyUserUpdate', userId);
   }
 }

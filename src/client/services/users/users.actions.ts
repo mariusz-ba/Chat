@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { IState, IUser, IErrors, IAction, ACTIONS } from './users.constants';
 import axios from 'axios';
+import Socket from 'services/sockets/socket';
 
 export const requestUser = (userId: string): IAction => ({
   type: ACTIONS.REQUEST_USER,
@@ -54,6 +55,11 @@ export const updateUser = (userId: string, data: IUser) => {
       const res = await axios.put(`/api/users/${userId}`, data);
       const user = res.data;
       dispatch(receiveUser(user));
+      // We need to tell socket that we changed our user information
+      // So other currently connected clients should be notified about that
+      const socket = Socket.getInstance();
+      if(socket)
+        socket.notifyUserUpdate(user._id);
     } catch(e) {
       dispatch(setUsersErrors(e.response.data));
     }

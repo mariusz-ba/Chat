@@ -47,6 +47,12 @@ export class SocketsController {
         
         socket.broadcast.to(s).emit('receive', message);
       })
+
+      socket.on('notifyUserUpdate', (userId: string) => {
+        // User data has been changed, notify clients to update
+        // this users data
+        socket.broadcast.emit('updateUser', userId);
+      })
     })
   }
 }
