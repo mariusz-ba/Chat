@@ -44,11 +44,12 @@ export function Navbar(props: IProps) {
   const firstname = user && user.firstname ? user.firstname : '';
   const lastname = user && user.lastname ? user.lastname : '';
   const username = user && user.username ? user.username : 'unnamed';
+  const avatar = user && user.avatar ? user.avatar : '/gfx/users/placeholder.svg';
 
   return (
     <nav className={styles.nav}>
       <div className={styles.header}>
-        <img className={styles.avatar} src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
+        <img className={styles.avatar} src={avatar} alt="Avatar"/>
         { //firstname.length > 0 || lastname.length > 0 &&
           <h1 className={styles.title}>{firstname} {lastname}</h1>
         }

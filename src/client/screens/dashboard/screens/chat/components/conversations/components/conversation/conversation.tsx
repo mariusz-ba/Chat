@@ -32,7 +32,7 @@ export default class UserItem extends React.Component<IProps> {
       <li className={classNames}>
         <Link className={styles.link} to="#" onClick={this.onClicked}>
           <div className={avatarStyles}>
-            <img src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
+            <img src={user.avatar} alt="Avatar"/>
           </div>
           <div className={styles.content}>
             <h2 className={styles.content__username}>{user.username}</h2>

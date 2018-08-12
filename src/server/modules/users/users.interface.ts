@@ -7,5 +7,8 @@ export interface IUserDocument extends Document {
   password: string,
   email: string,
   createdAt: number,
-  updatedAt: number
+  updatedAt: number,
+  firstname: string,
+  lastname: string,
+  avatar: string
 }

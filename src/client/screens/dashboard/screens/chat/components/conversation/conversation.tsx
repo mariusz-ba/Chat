@@ -11,7 +11,7 @@ interface IMessage {
 }
 
 interface IProps {
-  user: string
+  user: string,
   messages: Array<IMessage>,
   send(message: string): any
 }
@@ -42,7 +42,7 @@ export default class Conversation extends React.Component<IProps, IState> {
       return (
         <li className={itemStyles} key={index}>
           <div className={styles.messages__avatar}>
-            <img src="https://i1.wp.com/grueneroadpharmacy.com/wp-content/uploads/2017/02/user-placeholder-1.jpg?ssl=1" alt="Avatar"/>
+            <img src={message.from.avatar} alt="Avatar"/>
           </div>
           <div className={styles.messages__message}>{message.content}</div>
         </li>
