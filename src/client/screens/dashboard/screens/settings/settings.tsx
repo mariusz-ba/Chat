@@ -166,23 +166,23 @@ export class Settings extends React.Component<IProps, IState> {
               <form className={styles.form}>
                 <div className={styles.form__group}>
                   <label htmlFor="username">Username</label>
-                  <input id="username" name="username" type="text" value={basic.username} onChange={this.changeBasic}/>
+                  <input id="username" name="username" placeholder="Pick your nickname" type="text" value={basic.username} onChange={this.changeBasic}/>
                 </div>
                 <div className={styles.form__group}>
                   <label htmlFor="firstname">Firstname</label>
-                  <input id="firstname" name="firstname" type="text" value={basic.firstname} onChange={this.changeBasic}/>
+                  <input id="firstname" name="firstname" placeholder="Your firstname" type="text" value={basic.firstname} onChange={this.changeBasic}/>
                 </div>
                 <div className={styles.form__group}>
                   <label htmlFor="lastname">Lastname</label>
-                  <input id="lastname" name="lastname" type="text" value={basic.lastname} onChange={this.changeBasic}/>
+                  <input id="lastname" name="lastname" placeholder="Your lastname" type="text" value={basic.lastname} onChange={this.changeBasic}/>
                 </div>
                 <div className={styles.form__group}>
                   <label htmlFor="email">E-Mail</label>
-                  <input id="email" name="email" type="email" value={basic.email} onChange={this.changeBasic}/>
+                  <input id="email" name="email" placeholder="E-Mail" type="email" value={basic.email} onChange={this.changeBasic}/>
                 </div>
                 <div className={styles.form__group}>
                   <label htmlFor="avatar">Avatar</label>
-                  <input id="avatar" name="avatar" type="text" value={basic.avatar} onChange={this.changeBasic}/>
+                  <input id="avatar" name="avatar" placeholder="Avatar url" type="text" value={basic.avatar} onChange={this.changeBasic}/>
                 </div>
                 <Button primary onClick={this.submitBasic}>Submit</Button>
               </form>
@@ -193,15 +193,15 @@ export class Settings extends React.Component<IProps, IState> {
               <form className={styles.form}>
                 <div className={styles.form__group}>
                   <label htmlFor="previous">Current password</label>
-                  <input id="previous" name="previous" type="password" value={password.previous} onChange={this.changePassword}/>
+                  <input id="previous" name="previous" placeholder="Your current password" type="password" value={password.previous} onChange={this.changePassword}/>
                 </div>
                 <div className={styles.form__group}>
                   <label htmlFor="password">New password</label>
-                  <input id="password" name="password" type="password" value={password.password} onChange={this.changePassword}/>
+                  <input id="password" name="password" placeholder="New password" type="password" value={password.password} onChange={this.changePassword}/>
                 </div>
                 <div className={styles.form__group}>
                   <label htmlFor="confirm">Confirm</label>
-                  <input id="confirm" name="confirm" type="password" value={password.confirm} onChange={this.changePassword}/>
+                  <input id="confirm" name="confirm" placeholder="Confirm new password" type="password" value={password.confirm} onChange={this.changePassword}/>
                 </div>
                 <Button primary onClick={this.submitPassword}>Submit</Button>
               </form>

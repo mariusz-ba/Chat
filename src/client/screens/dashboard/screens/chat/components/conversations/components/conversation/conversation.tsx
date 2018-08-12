@@ -28,6 +28,10 @@ export default class UserItem extends React.Component<IProps> {
       [styles.avatar_online]: user.online
     })
 
+    const firstname = user.firstname.length > 0 ? user.firstname : '';
+    const lastname = user.lastname.length > 0 ? user.lastname : '';
+    const fullname = firstname.length > 0 || lastname.length > 0 ? firstname + ' ' + lastname : user.username;
+
     return (
       <li className={classNames}>
         <Link className={styles.link} to="#" onClick={this.onClicked}>
@@ -35,7 +39,7 @@ export default class UserItem extends React.Component<IProps> {
             <img src={user.avatar} alt="Avatar"/>
           </div>
           <div className={styles.content}>
-            <h2 className={styles.content__username}>{user.username}</h2>
+            <h2 className={styles.content__username}>{fullname}</h2>
             <p className={styles.content__preview}>{ this.props.lastMessage && this.props.lastMessage.content }</p>
             <p className={styles.content__typing}>
               &middot;&middot;&middot;
