@@ -1,0 +1,29 @@
+.container {
+  height: 100%;
+  overflow-y: auto;
+  display: grid;
+  box-shadow: inset 3px 0 3px -3px #000;
+  background: #fafafa;
+}
+
+.wrapper {
+  margin: 1rem 0;
+  justify-self: center;
+  width: 83.3333%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  color: #555555;
+}
+
+.settings {
+  background: white;
+  flex: 1;
+  margin: 1rem 0;
+  border: 1px solid #d3d3d3;
+  border-radius: 3px;
+  padding: 1rem;
+}
