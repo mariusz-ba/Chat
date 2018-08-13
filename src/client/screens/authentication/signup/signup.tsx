@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 import Button from '../../../components/button/button';
 import Card from '../components/card/card';
@@ -21,7 +22,11 @@ interface IState {
   errors: IError
 }
 
-export default class Signup extends React.Component<{}, IState> {
+interface IProps {
+  history: any
+}
+
+export class Signup extends React.Component<IProps, IState> {
   state = {
     username: '',
     password: '',
@@ -51,6 +56,7 @@ export default class Signup extends React.Component<{}, IState> {
         const { username, email, password } = this.state;
         const res = await axios.post('/api/users', { username, email, password });
         const user = res.data;
+        this.props.history.push('/signin');
       } catch (e) {
         this.setState({ errors: { ...this.state.errors, ...e.response.data } });
       }
@@ -107,3 +113,5 @@ export default class Signup extends React.Component<{}, IState> {
     )
   }
 }
+
+export default withRouter<any>(Signup);

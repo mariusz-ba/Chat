@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ICredentials, signIn } from '../../../services/auth/auth.actions';
 import { IState as IAuthState } from '../../../services/auth/auth.constants';
@@ -10,6 +11,7 @@ import Form from '../components/form/form';
 const styles = require('../authentication.scss');
 
 interface IProps {
+  history: any,
   auth: IAuthState,
   signIn(credentials: ICredentials): any
 }
@@ -33,10 +35,12 @@ export class Signin extends React.Component<IProps, IState> {
     this.setState(data);
   }
 
-  handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { identifier, password } = this.state;
-    this.props.signIn({ identifier, password });
+    await this.props.signIn({ identifier, password });
+    if(this.props.auth.errors === null)
+      this.props.history.push('/');
   }
 
   render() {
@@ -69,4 +73,4 @@ export class Signin extends React.Component<IProps, IState> {
 
 const mapStateToProps = ({ auth }: { auth: any }) => ({ auth });
 
-export default connect(mapStateToProps, { signIn })(Signin);
+export default withRouter<any>(connect(mapStateToProps, { signIn })(Signin));
