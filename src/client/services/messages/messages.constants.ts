@@ -4,8 +4,13 @@ export interface IMessage {
   content: string
 }
 
+export interface IConversationGroup {
+  isTyping: boolean,
+  items: Array<IMessage>
+}
+
 export interface IMessageObject {
-  [key: string]: Array<IMessage>
+  [key: string]: IConversationGroup
 }
 
 export interface IErrors {

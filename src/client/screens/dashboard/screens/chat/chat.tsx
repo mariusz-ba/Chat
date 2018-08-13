@@ -64,13 +64,17 @@ export class Chat extends React.Component<IProps, IState> {
     const messages = 
       this.state.current &&
       this.props.messages.messages &&
-      this.props.messages.messages[this.state.current] ? 
-      this.props.messages.messages[this.state.current] : [];
+      this.props.messages.messages[this.state.current] && 
+      this.props.messages.messages[this.state.current].items ?
+      this.props.messages.messages[this.state.current].items : [];
 
 
     const lastMessages: any = {};
     for(let key in this.props.messages.messages) {
-      const array = this.props.messages.messages[key];
+      const array = 
+        this.props.messages.messages[key] &&
+        this.props.messages.messages[key].items ?
+        this.props.messages.messages[key].items : [];
       lastMessages[key] = array[array.length - 1] ? array[array.length - 1] : null;
     }
 

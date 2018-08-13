@@ -18,10 +18,15 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
         ...state,
         messages: {
           ...state.messages,
-          [action.payload.from]: [
-            ...(state.messages[action.payload.from] ? state.messages[action.payload.from] : []),
-            { ...action.payload }
-          ]
+          [action.payload.from]: {
+            ...state.messages[action.payload.from],
+            items: [
+              ...state.messages[action.payload.from].items,
+              { ...action.payload }
+            ]
+            //...(state.messages[action.payload.from] ? state.messages[action.payload.from] : []),
+            //{ ...action.payload }
+          }
         }
       }
       break;
@@ -32,10 +37,15 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
         ...state, 
         messages: { 
           ...state.messages, 
-          [action.payload.to]: [
-            ...(state.messages[action.payload.to] ? state.messages[action.payload.to] : []),
-            { ...action.payload }
-          ] 
+          [action.payload.to]: {
+            //...(state.messages[action.payload.to] ? state.messages[action.payload.to] : []),
+            //{ ...action.payload }
+            ...state.messages[action.payload.to],
+            items: [
+              ...state.messages[action.payload.to].items,
+              { ...action.payload }
+            ]
+          }
         }
       }
       break;
