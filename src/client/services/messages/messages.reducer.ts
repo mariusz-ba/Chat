@@ -14,38 +14,50 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
     }
     case ACTIONS.RECEIVE_MESSAGE: {
       // action.payload = { from: id, to: id, content: string }
+      let messages = {};
+      if(state.messages[action.payload.from])
+        messages = { 
+          ...state.messages[action.payload.from],
+          items: [
+            ...(Array.isArray(state.messages[action.payload.from].items) ? state.messages[action.payload.from].items : []),
+            { ...action.payload }
+          ]
+        }
+      else
+        messages = {
+          items: [{ ...action.payload }]
+        }
+
       state = {
         ...state,
         messages: {
           ...state.messages,
-          [action.payload.from]: {
-            ...state.messages[action.payload.from],
-            items: [
-              ...state.messages[action.payload.from].items,
-              { ...action.payload }
-            ]
-            //...(state.messages[action.payload.from] ? state.messages[action.payload.from] : []),
-            //{ ...action.payload }
-          }
+          [action.payload.from]: messages
         }
       }
       break;
     }
     case ACTIONS.SEND_MESSAGE: {
       // action.payload = { from: id, to: id, content: string }
+      let messages = {};
+      if(state.messages[action.payload.to])
+        messages = { 
+          ...state.messages[action.payload.to],
+          items: [
+            ...(Array.isArray(state.messages[action.payload.to].items) ? state.messages[action.payload.to].items : []),
+            { ...action.payload }
+          ]
+        }
+      else
+        messages = {
+          items: [{ ...action.payload }]
+        }
+
       state = { 
         ...state, 
         messages: { 
           ...state.messages, 
-          [action.payload.to]: {
-            //...(state.messages[action.payload.to] ? state.messages[action.payload.to] : []),
-            //{ ...action.payload }
-            ...state.messages[action.payload.to],
-            items: [
-              ...state.messages[action.payload.to].items,
-              { ...action.payload }
-            ]
-          }
+          [action.payload.to]: messages
         }
       }
       break;
