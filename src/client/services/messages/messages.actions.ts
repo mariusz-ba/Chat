@@ -45,8 +45,8 @@ export const fetchMessages = (userId: string): any => {
       // Conversations fetched from server dont match our reducer data model
       // We need to change it a little bit
       const mapped = conv.map((conversation: any) => {
-        const usr1 = conversation.users[0];
-        const usr2 = conversation.users[1];
+        const usr1 = conversation.user1;
+        const usr2 = conversation.user2;
 
         const messages = conversation.messages.map((message: any) => {
           return {
