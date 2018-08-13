@@ -1,4 +1,5 @@
 import usersService from '../users/users.service';
+import conversationsService from '../conversations/conversations.service';
 import * as sockets from 'socket.io';
 
 export class SocketsController {
@@ -44,6 +45,9 @@ export class SocketsController {
       socket.on('message', async (message: any) => {
         // message = { from: userid, to: userid, content: string }
         const s = await usersService.getUserSocket(message.to);
+
+        // Save this message in database
+        await conversationsService.pushMessage(message);
         
         socket.broadcast.to(s).emit('receive', message);
       })

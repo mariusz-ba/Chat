@@ -3,11 +3,13 @@ import { IController } from '../interfaces/controller.interface';
 
 // Controllers
 import UsersController from './users/users.controller';
+import ConversationsController from './conversations/conversations.controller';
 
 export class Router {
 
   private controllers: Array<IController> = [
     new UsersController('/api/users'),
+    new ConversationsController('/api/conversations')
     // ... other controllers
   ]
 
