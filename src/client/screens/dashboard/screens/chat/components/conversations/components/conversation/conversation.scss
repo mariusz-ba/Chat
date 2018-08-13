@@ -100,7 +100,36 @@
     position: absolute;
     top: 0;
     right: 0;
-    font-weight: bold;
-    color: #959595;
+    width: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+
+    & > div {
+      width: .4rem;
+      height: .4rem;
+      background: #555555;
+      border-radius: 50%;
+      display: inline-block;
+      animation: typinganimation 1.4s infinite ease-in-out both;
+    }
+
+    &_1 {
+      animation-delay: -0.32s !important;
+    }
+
+    &_2 {
+      animation-delay: -0.16s !important;
+    }
+  }
+}
+
+@keyframes typinganimation {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
   }
 }

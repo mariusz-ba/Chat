@@ -26,6 +26,16 @@ export const setMessagesErrors = (errors: IErrors): IAction => ({
   payload: errors
 })
 
+export const startTyping = (userId: string): IAction => ({
+  type: ACTIONS.START_TYPING,
+  payload: userId
+})
+
+export const stopTyping = (userId: string): IAction => ({
+  type: ACTIONS.STOP_TYPING,
+  payload: userId
+})
+
 export const fetchMessages = (userId: string): any => {
   return async (dispatch: Dispatch) => {
     // dispatch start fetching ...

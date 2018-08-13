@@ -13,20 +13,51 @@ interface IMessage {
 interface IProps {
   user: string,
   messages: Array<IMessage>,
-  send(message: string): any
+  send(message: string): any,
+  onStartTyping(): any,
+  onStopTyping(): any
 }
 
 interface IState {
-  message: string
+  message: string,
+  delay: number,
+  isTyping: boolean
 }
 
 export default class Conversation extends React.Component<IProps, IState> {
+  private interval: any;
+
   state = {
-    message: ''
+    message: '',
+    delay: 0,
+    isTyping: false
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      if(this.state.delay > 0)
+        this.setState({ delay: this.state.delay - 1 });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    if(this.interval)
+      clearInterval(this.interval);
+  }
+
+  componentDidUpdate(prevProps: IProps, prevState: IState) {
+    if(prevState.delay !== this.state.delay)
+      if(this.state.delay === 0) {
+        this.setState({ isTyping: false });
+        this.props.onStopTyping();
+      }
   }
 
   changeMessage = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ message: e.currentTarget.value });
+    if(!this.state.isTyping) {
+      this.props.onStartTyping();
+    }
+    this.setState({ delay: 2, isTyping: true, message: e.currentTarget.value });
   }
   
   send = (e: React.FormEvent<HTMLButtonElement>) => {

@@ -1,7 +1,7 @@
 import * as io from 'socket.io-client';
 import store from '../../store';
 import { fetchUser, setUserOffline } from 'services/users/users.actions';
-import { receiveMessage } from 'services/messages/messages.actions';
+import { receiveMessage, startTyping, stopTyping } from 'services/messages/messages.actions';
 
 export default class Socket {
   static _instance: Socket | undefined;
@@ -53,6 +53,17 @@ export default class Socket {
     this._socket.on('updateUser', (userId: string) => {
       store.dispatch(fetchUser(userId));
     })
+
+    // Someone started or stopped typing
+    this._socket.on('startedTyping', (userId: string) => {
+      console.log(' started typing...', userId);
+      store.dispatch(startTyping(userId));
+    })
+
+    this._socket.on('stoppedTyping', (userId: string) => {
+      console.log('stopped typing...', userId);
+      store.dispatch(stopTyping(userId));
+    })
   }
 
   send(message: any) {
@@ -61,5 +72,15 @@ export default class Socket {
 
   notifyUserUpdate(userId: string) {
     this._socket.emit('notifyUserUpdate', userId);
+  }
+
+  // user userId started typing, notify notifyId
+  startTyping(userId: string, notifyId: string) {
+    this._socket.emit('startTyping', { user: userId, notify: notifyId });
+  }
+
+  // user userId stopped typing, notify notifyId
+  stopTyping(userId: string, notifyId: string) {
+    this._socket.emit('stopTyping', { user: userId, notify: notifyId });
   }
 }

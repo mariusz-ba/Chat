@@ -57,6 +57,17 @@ export class SocketsController {
         // this users data
         socket.broadcast.emit('updateUser', userId);
       })
+
+      socket.on('startTyping', async ({ user, notify }: { user: string, notify: string}) => {
+        const s = await usersService.getUserSocket(notify);
+        console.log(s);
+        socket.broadcast.to(s).emit('startedTyping', user);
+      })
+
+      socket.on('stopTyping', async ({ user, notify }: { user: string, notify: string}) => {
+        const s = await usersService.getUserSocket(notify);
+        socket.broadcast.to(s).emit('stoppedTyping', user);
+      })
     })
   }
 }

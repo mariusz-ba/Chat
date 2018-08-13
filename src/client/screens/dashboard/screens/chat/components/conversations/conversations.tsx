@@ -28,14 +28,25 @@ export default class Conversations extends React.Component<IProps, IState> {
     return (
       <ul className={styles.conversations_list}>
         {
-          this.props.users.map((user: IUser) => (
-            <Conversation 
-              active={this.state.current === user._id} 
-              lastMessage={this.props.lastMessages[user._id]}
-              key={user._id} 
-              user={user} 
-              onClicked={this.onConversationClicked}/>
-          ))
+          this.props.users.map((user: IUser) => {
+            const lastMessage = 
+              this.props.lastMessages[user._id] &&
+              this.props.lastMessages[user._id].message;
+
+            const isTyping = 
+              this.props.lastMessages[user._id] &&
+              this.props.lastMessages[user._id].isTyping;
+
+            return (
+              <Conversation 
+                active={this.state.current === user._id} 
+                lastMessage={lastMessage}
+                isTyping={isTyping}
+                key={user._id} 
+                user={user} 
+                onClicked={this.onConversationClicked}/>
+            )
+          })
         }
       </ul>
     )
