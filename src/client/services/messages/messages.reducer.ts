@@ -2,11 +2,16 @@ import { IState, IAction, ACTIONS } from './messages.constants';
 import { Reducer } from 'redux';
 
 export const INITIAL_STATE: IState = {
-  messages: {}
+  messages: {},
+  errors: null
 }
 
 const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
   switch(action.type) {
+    case ACTIONS.RECEIVE_MESSAGES: {
+      state = { ...state, messages: action.payload }
+      break;
+    }
     case ACTIONS.RECEIVE_MESSAGE: {
       // action.payload = { from: id, to: id, content: string }
       state = {
@@ -33,6 +38,10 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
           ] 
         }
       }
+      break;
+    }
+    case ACTIONS.SET_MESSAGES_ERRORS: {
+      state = { ...state, errors: action.payload };
       break;
     }
     default: {}
