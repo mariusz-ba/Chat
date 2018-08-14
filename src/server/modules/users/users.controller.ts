@@ -3,6 +3,7 @@ import { IController } from '../../interfaces/controller.interface';
 import { catchExceptions } from '../../middleware/exceptions';
 import UsersService from './users.service';
 import User from './users.model';
+import authenticate from '../../middleware/authenticate';
 
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
@@ -27,7 +28,8 @@ class UsersController implements IController {
   private configure() {
 
     this._router.get(
-      '/', 
+      '/',
+      authenticate,
       catchExceptions(async (req: Request, res: Response) => {
         const users = await UsersService.getUsers();
         res.status(200).json(users);
@@ -60,7 +62,8 @@ class UsersController implements IController {
     )
 
     this._router.get(
-      '/:id', 
+      '/:id',
+      authenticate,
       catchExceptions(async (req: Request, res: Response) => {
         const user = await UsersService.getUserById(req.params.id);
         res.status(200).json(user);
@@ -89,7 +92,12 @@ class UsersController implements IController {
 
     this._router.put(
       '/:id',
+      authenticate,
       catchExceptions(async (req: Request, res: Response ) => {
+        if(!(req as any).user._id.equals(req.params.id)) {
+          res.status(401).json({ error: 'No permissions' });
+          return;
+        }
         // Determine if we're changing users data or password
         if(req.body.password) {
           // We're changing password
