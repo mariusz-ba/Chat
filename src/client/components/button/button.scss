@@ -14,9 +14,9 @@
   }
 
   &_primary {
-    background: #007bff; 
+    background: #9933ff; 
     color: #fff;
-    &:hover { background: #0069d9; }
+    &:hover { background: darken(#9933ff, 20%); }
   }
 
   &_secondary {
