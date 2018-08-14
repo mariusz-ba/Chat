@@ -17,7 +17,7 @@ interface IProps {
 
 const routes = [
   { to: '/', icon: 'fas fa-comments', text: 'Chat' },
-  { to: '/profile', icon: 'fas fa-user', text: 'Profile' },
+  // { to: '/profile', icon: 'fas fa-user', text: 'Profile' },
   { to: '/settings', icon: 'fas fa-cogs', text: 'Settings' }
 ]
 
