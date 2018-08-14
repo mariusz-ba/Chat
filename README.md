@@ -1,7 +1,7 @@
 # Chat
 Chat application written in TypeScript + React and Socket.io.
 
-![Application preview](https://i.imgur.com/T9B8qgW.png)
+![Application preview](https://i.imgur.com/qxu8R3A.png)
 
 ## Getting Started
 
