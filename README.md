@@ -27,6 +27,11 @@ npm start
 
 If everything goes well you will get store running on http://localhost:3000
 
+To run project in production environment use
+```
+npm run start:prod
+```
+
 ### Issues
 
 If any error has occurred, please let me know by opening issue.
