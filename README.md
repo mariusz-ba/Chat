@@ -1,7 +1,7 @@
 # Chat
 Chat application written in TypeScript + React and Socket.io.
 
-![Application preview](https://i.imgur.com/T9B8qgW.png)
+![Application preview](https://i.imgur.com/qxu8R3A.png)
 
 ## Getting Started
 
@@ -26,6 +26,11 @@ npm start
 ```
 
 If everything goes well you will get store running on http://localhost:3000
+
+To run project in production environment use
+```
+npm run start:prod
+```
 
 ### Issues
 
