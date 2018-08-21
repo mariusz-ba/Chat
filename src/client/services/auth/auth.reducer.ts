@@ -11,32 +11,23 @@ export const INITIAL_STATE: IState = {
 
 const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
   switch(action.type) {
-    case ACTIONS.REQUEST_SIGNIN: {
-      state = { ...state, isFetching: true };
-      break;
-    }
-    case ACTIONS.SET_CURRENT_USER: {
-      state = {
+    case ACTIONS.REQUEST_SIGNIN:
+      return { ...state, isFetching: true };
+    case ACTIONS.SET_CURRENT_USER:
+      return {
         ...state,
         isFetching: false,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
         errors: null
       }
-      break;
-    }
-    case ACTIONS.SET_AUTH_ERRORS: {
-      state = { ...state, isFetching: false, errors: action.payload };
-      break;
-    }
-    case ACTIONS.SIGNOUT: {
-      state = INITIAL_STATE;
-      break;
-    }
-    default: {}
+    case ACTIONS.SET_AUTH_ERRORS:
+      return { ...state, isFetching: false, errors: action.payload };
+    case ACTIONS.SIGNOUT:
+      return INITIAL_STATE;
+    default:
+      return state;
   }
-  
-  return state;
 }
 
 export default reducer;

@@ -8,10 +8,8 @@ export const INITIAL_STATE: IState = {
 
 const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
   switch(action.type) {
-    case ACTIONS.RECEIVE_MESSAGES: {
-      state = { ...state, messages: action.payload }
-      break;
-    }
+    case ACTIONS.RECEIVE_MESSAGES:
+      return { ...state, messages: action.payload }
     case ACTIONS.RECEIVE_MESSAGE: {
       // action.payload = { from: id, to: id, content: string }
       let messages = {};
@@ -28,14 +26,13 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
           items: [{ ...action.payload }]
         }
 
-      state = {
+      return {
         ...state,
         messages: {
           ...state.messages,
           [action.payload.from]: messages
         }
       }
-      break;
     }
     case ACTIONS.SEND_MESSAGE: {
       // action.payload = { from: id, to: id, content: string }
@@ -53,21 +50,18 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
           items: [{ ...action.payload }]
         }
 
-      state = { 
+      return { 
         ...state, 
         messages: { 
           ...state.messages, 
           [action.payload.to]: messages
         }
       }
-      break;
     }
-    case ACTIONS.SET_MESSAGES_ERRORS: {
-      state = { ...state, errors: action.payload };
-      break;
-    }
-    case ACTIONS.START_TYPING: {
-      state = {
+    case ACTIONS.SET_MESSAGES_ERRORS:
+      return { ...state, errors: action.payload };
+    case ACTIONS.START_TYPING:
+      return {
         ...state,
         messages: {
           ...state.messages,
@@ -77,10 +71,8 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
           }
         }
       }
-      break;
-    }
-    case ACTIONS.STOP_TYPING: {
-      state = {
+    case ACTIONS.STOP_TYPING:
+      return {
         ...state,
         messages: {
           ...state.messages,
@@ -90,12 +82,9 @@ const reducer: Reducer = (state: IState = INITIAL_STATE, action: IAction) => {
           }
         }
       }
-      break;
-    }
-    default: {}
+    default: 
+      return state;
   }
-
-  return state;
 }
 
 export default reducer;
